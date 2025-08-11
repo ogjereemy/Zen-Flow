@@ -70,7 +70,7 @@ export default function AlarmMode() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <div className="text-7xl font-bold digital-glow mb-2 text-white">
+          <div className="text-7xl font-bold digital-glow mb-2 text-white text-stroke breathe">
             {formatCurrentTime(currentTime)}
           </div>
           <div className="text-2xl font-light opacity-80 text-white">
@@ -100,7 +100,7 @@ export default function AlarmMode() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white touch-feedback"
+                className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white touch-feedback ripple neon-glow"
                 onClick={() => adjustAlarmTime('hours', 'up')}
                 data-testid="increase-hour"
               >

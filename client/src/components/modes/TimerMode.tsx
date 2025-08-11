@@ -91,7 +91,7 @@ export default function TimerMode() {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="text-5xl font-bold digital-glow text-white" data-testid="timer-time">
+            <div className="text-5xl font-bold digital-glow text-white text-stroke mode-glow breathe" data-testid="timer-time">
               {formatTime(timeLeft)}
             </div>
             <div className="text-lg opacity-60 mt-2 text-white">
@@ -116,7 +116,7 @@ export default function TimerMode() {
           </Button>
           
           <Button
-            className="w-20 h-20 bg-red-500 hover:bg-red-600 rounded-full text-2xl touch-feedback shadow-2xl"
+            className="w-20 h-20 bg-red-500 hover:bg-red-600 rounded-full text-2xl touch-feedback shadow-2xl ripple neon-glow breathe"
             onClick={isRunning ? pause : timeLeft === 0 ? reset : start}
             data-testid="timer-toggle"
           >

@@ -18,16 +18,42 @@ export default function SplashScreen() {
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-8xl mb-6"
+          className="text-8xl mb-6 mode-glow breathe"
         >
           📱
         </motion.div>
+        
+        {/* Floating particles during splash */}
+        <div className="absolute inset-0 pointer-events-none">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-white rounded-full opacity-60"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -40, 0],
+                x: [0, Math.random() > 0.5 ? 30 : -30, 0],
+                scale: [0.5, 1.2, 0.5],
+                opacity: [0.3, 0.9, 0.3],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </div>
         
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-5xl font-bold mb-4 digital-glow text-white"
+          className="text-5xl font-bold mb-4 digital-glow text-white text-stroke neon-glow"
         >
           OrientClock
         </motion.h1>

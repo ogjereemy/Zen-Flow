@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import SplashScreen from "./components/SplashScreen";
 import ModeIndicator from "./components/ModeIndicator";
+import FloatingParticles from "./components/FloatingParticles";
+import InstallPrompt from "./components/InstallPrompt";
 import AlarmMode from "./components/modes/AlarmMode";
 import StopwatchMode from "./components/modes/StopwatchMode";
 import TimerMode from "./components/modes/TimerMode";
@@ -54,6 +56,8 @@ function App() {
 
           {!showSplash && (
             <>
+              <FloatingParticles orientation={orientation} />
+              
               <ModeIndicator 
                 mode={currentMode.name} 
                 icon={currentMode.icon} 
@@ -71,6 +75,8 @@ function App() {
                   <ModeComponent />
                 </motion.div>
               </AnimatePresence>
+              
+              <InstallPrompt />
             </>
           )}
         </div>

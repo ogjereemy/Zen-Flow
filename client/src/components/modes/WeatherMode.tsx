@@ -112,7 +112,7 @@ export default function WeatherMode() {
                     {getWeatherIcon(weather.condition)}
                   </div>
                   <div>
-                    <div className="text-6xl font-bold digital-glow text-white" data-testid="weather-temperature">
+                    <div className="text-6xl font-bold digital-glow text-white text-stroke mode-glow breathe" data-testid="weather-temperature">
                       {Math.round(weather.temperature)}°
                     </div>
                     <div className="text-2xl opacity-80 text-white" data-testid="weather-condition">

@@ -45,10 +45,10 @@ export default function StopwatchMode() {
           animate={{ opacity: 1, x: 0 }}
           className="flex-1 text-center"
         >
-          <div className="text-8xl font-bold digital-glow mb-4 text-white" data-testid="stopwatch-time">
+          <div className="text-8xl font-bold digital-glow mb-4 text-white text-stroke mode-glow" data-testid="stopwatch-time">
             {timeDisplay.display}
           </div>
-          <div className="text-2xl opacity-60 text-white">
+          <div className="text-2xl opacity-60 text-white breathe">
             {timeDisplay.milliseconds}
           </div>
         </motion.div>
@@ -59,7 +59,7 @@ export default function StopwatchMode() {
           className="flex flex-col space-y-4 ml-8"
         >
           <Button
-            className="w-20 h-20 bg-green-500 hover:bg-green-600 rounded-full text-2xl touch-feedback shadow-2xl"
+            className="w-20 h-20 bg-green-500 hover:bg-green-600 rounded-full text-2xl touch-feedback shadow-2xl ripple neon-glow breathe"
             onClick={isRunning ? pause : start}
             data-testid="stopwatch-toggle"
           >

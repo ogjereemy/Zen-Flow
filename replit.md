@@ -2,15 +2,25 @@
 
 ## Overview
 
-OrientClock is a modern Progressive Web App (PWA) that dynamically transforms into four different utility applications based on device orientation. The app provides a seamless, mobile-first experience with smooth animations and responsive design. Built for a hackathon with "wow factor" features, it combines practical functionality with stunning visual presentation.
+OrientClock is a cutting-edge Progressive Web App (PWA) that dynamically transforms into four different utility applications based on device orientation. The app provides a seamless, mobile-first experience with stunning visual effects, smooth animations, and responsive design. Built for a hackathon with exceptional "wow factor" features, it combines practical functionality with breathtaking visual presentation.
 
 **Core Features:**
-- **Portrait Upright**: Digital alarm clock with alarm setting functionality
-- **Landscape Right**: Stopwatch with play/pause/reset controls and lap timing
-- **Portrait Upside Down**: Countdown timer with circular progress visualization
-- **Landscape Left**: Real-time weather display with location-based data
+- **Portrait Upright**: Digital alarm clock with breathing animations and neon glow effects
+- **Landscape Right**: Stopwatch with precise timing, lap functionality, and rotating background elements
+- **Portrait Upside Down**: Countdown timer with animated circular progress and pulsing patterns
+- **Landscape Left**: Real-time weather display with floating cloud animations and weather-themed backgrounds
 
-The application emphasizes smooth orientation transitions, animated gradient backgrounds, and touch-friendly controls optimized for mobile devices.
+**Enhanced Visual Features (Added August 2025):**
+- Floating particle systems that adapt to each orientation mode
+- Neon glow effects on interactive elements with haptic-style feedback
+- Breathing animations on time displays for organic feel
+- Text stroke effects for better readability and visual depth
+- Ripple effects on button interactions
+- Enhanced splash screen with animated particles
+- PWA install prompt with smooth animations
+- Mode indicator with subtle icon animations
+
+The application emphasizes smooth orientation transitions, immersive animated gradient backgrounds, and premium touch-friendly controls optimized for mobile devices.
 
 ## User Preferences
 
