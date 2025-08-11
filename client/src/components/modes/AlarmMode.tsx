@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTime } from '@/hooks/useTime';
-import { Button } from '@/components/ui/button';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 import { Switch } from '@/components/ui/switch';
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import { hapticFeedback } from '@/utils/haptics';
 
 export default function AlarmMode() {
   const currentTime = useTime();
@@ -97,57 +98,61 @@ export default function AlarmMode() {
           
           <div className="flex items-center justify-center space-x-6 mb-4">
             <div className="flex flex-col items-center space-y-2">
-              <Button
+              <EnhancedButton
                 variant="ghost"
                 size="sm"
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white touch-feedback ripple neon-glow"
                 onClick={() => adjustAlarmTime('hours', 'up')}
+                haptic="light"
                 data-testid="increase-hour"
               >
                 <ChevronUp className="h-4 w-4" />
-              </Button>
+              </EnhancedButton>
               
               <div className="text-2xl font-bold digital-glow text-white min-w-[3rem] text-center">
                 {alarmTime.hours.toString().padStart(2, '0')}
               </div>
               
-              <Button
+              <EnhancedButton
                 variant="ghost"
                 size="sm"
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white touch-feedback"
                 onClick={() => adjustAlarmTime('hours', 'down')}
+                haptic="light"
                 data-testid="decrease-hour"
               >
                 <ChevronDown className="h-4 w-4" />
-              </Button>
+              </EnhancedButton>
             </div>
             
             <div className="text-2xl font-bold text-white">:</div>
             
             <div className="flex flex-col items-center space-y-2">
-              <Button
+              <EnhancedButton
                 variant="ghost"
                 size="sm"
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white touch-feedback"
                 onClick={() => adjustAlarmTime('minutes', 'up')}
+                haptic="light"
                 data-testid="increase-minute"
               >
                 <ChevronUp className="h-4 w-4" />
-              </Button>
+              </EnhancedButton>
               
               <div className="text-2xl font-bold digital-glow text-white min-w-[3rem] text-center">
                 {alarmTime.minutes.toString().padStart(2, '0')}
               </div>
               
-              <Button
+              <EnhancedButton
                 variant="ghost"
                 size="sm"
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white touch-feedback"
                 onClick={() => adjustAlarmTime('minutes', 'down')}
+                haptic="light"
                 data-testid="decrease-minute"
               >
                 <ChevronDown className="h-4 w-4" />
-              </Button>
+              </EnhancedButton>
             </div>
           </div>
           

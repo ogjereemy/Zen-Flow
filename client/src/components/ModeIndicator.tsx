@@ -10,17 +10,18 @@ export default function ModeIndicator({ mode, icon }: ModeIndicatorProps) {
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-4 left-4 z-40 glass-morphism rounded-xl px-4 py-2 neon-glow breathe"
+      exit={{ opacity: 0, y: -20 }}
+      className="absolute top-4 left-4 z-10 bg-black/20 backdrop-blur-sm rounded-xl px-4 py-2 border border-white/10"
     >
-      <div className="flex items-center space-x-2">
-        <motion.div 
-          className="text-xl"
+      <div className="flex items-center gap-2 text-white">
+        <motion.span
           animate={{ rotate: [0, 10, -10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="text-xl"
         >
           {icon}
-        </motion.div>
-        <span className="font-medium text-sm text-white text-stroke">{mode}</span>
+        </motion.span>
+        <span className="text-sm font-medium tracking-wide">{mode}</span>
       </div>
     </motion.div>
   );

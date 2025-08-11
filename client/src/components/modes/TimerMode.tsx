@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { useTimer } from '@/hooks/useTime';
-import { Button } from '@/components/ui/button';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 import { Play, Pause, Plus, Minus, RotateCcw } from 'lucide-react';
+import { hapticFeedback } from '@/utils/haptics';
 
 export default function TimerMode() {
   const { 
@@ -105,19 +106,21 @@ export default function TimerMode() {
           animate={{ opacity: 1, y: 0 }}
           className="flex space-x-6 mb-8"
         >
-          <Button
+          <EnhancedButton
             variant="ghost"
             className="w-16 h-16 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full text-xl touch-feedback text-white"
             onClick={decreaseTime}
             disabled={isRunning}
+            haptic="light"
             data-testid="decrease-timer"
           >
             <Minus className="h-6 w-6" />
-          </Button>
+          </EnhancedButton>
           
-          <Button
+          <EnhancedButton
             className="w-20 h-20 bg-red-500 hover:bg-red-600 rounded-full text-2xl touch-feedback shadow-2xl ripple neon-glow breathe"
             onClick={isRunning ? pause : timeLeft === 0 ? reset : start}
+            haptic="heavy"
             data-testid="timer-toggle"
           >
             {timeLeft === 0 ? (
@@ -127,17 +130,18 @@ export default function TimerMode() {
             ) : (
               <Play className="h-8 w-8" />
             )}
-          </Button>
+          </EnhancedButton>
           
-          <Button
+          <EnhancedButton
             variant="ghost"
             className="w-16 h-16 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full text-xl touch-feedback text-white"
             onClick={increaseTime}
             disabled={isRunning}
+            haptic="light"
             data-testid="increase-timer"
           >
             <Plus className="h-6 w-6" />
-          </Button>
+          </EnhancedButton>
         </motion.div>
         
         <motion.div 
@@ -146,16 +150,17 @@ export default function TimerMode() {
           className="grid grid-cols-4 gap-3"
         >
           {[1, 5, 10, 15].map(minutes => (
-            <Button
+            <EnhancedButton
               key={minutes}
               variant="ghost"
               className="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl px-4 py-2 text-sm touch-feedback text-white"
               onClick={() => setTimer(minutes)}
               disabled={isRunning}
+              haptic="light"
               data-testid={`timer-preset-${minutes}`}
             >
               {minutes}m
-            </Button>
+            </EnhancedButton>
           ))}
         </motion.div>
       </div>

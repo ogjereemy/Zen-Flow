@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Download, X } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { X, Download } from "lucide-react";
 
 interface BeforeInstallPromptEvent extends Event {
-  readonly platforms: string[];
-  readonly userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed';
-    platform: string;
-  }>;
   prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
 export default function InstallPrompt() {
@@ -20,7 +16,11 @@ export default function InstallPrompt() {
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setShowPrompt(true);
+      
+      // Show the prompt after a short delay for better UX
+      setTimeout(() => {
+        setShowPrompt(true);
+      }, 3000);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
@@ -31,12 +31,14 @@ export default function InstallPrompt() {
   }, []);
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return;
-
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
+    if (deferredPrompt) {
+      await deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
+      
+      if (choiceResult.outcome === 'accepted') {
+        console.log('PWA installed');
+      }
+      
       setDeferredPrompt(null);
       setShowPrompt(false);
     }
@@ -44,10 +46,7 @@ export default function InstallPrompt() {
 
   const handleDismiss = () => {
     setShowPrompt(false);
-    // Show again after 24 hours
-    setTimeout(() => {
-      if (deferredPrompt) setShowPrompt(true);
-    }, 24 * 60 * 60 * 1000);
+    setDeferredPrompt(null);
   };
 
   return (
@@ -57,32 +56,42 @@ export default function InstallPrompt() {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
-          className="fixed bottom-4 left-4 right-4 z-50 glass-morphism rounded-2xl p-4 neon-glow"
+          className="fixed bottom-4 left-4 right-4 z-50 bg-white/90 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-xl"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="text-2xl">📱</div>
-              <div>
-                <div className="font-medium text-white">Install OrientClock</div>
-                <div className="text-sm opacity-80 text-white">Get the full app experience</div>
+          <div className="p-4">
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="text-2xl">📱</div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Install OrientClock</h3>
+                  <p className="text-sm text-gray-600">Get the full app experience</p>
+                </div>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleDismiss}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-4 h-4" />
+              </Button>
             </div>
-            <div className="flex space-x-2">
+            
+            <div className="flex gap-2">
               <Button
                 onClick={handleInstall}
-                className="bg-blue-500 hover:bg-blue-600 text-white ripple neon-glow"
-                data-testid="install-app"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                size="sm"
               >
-                <Download className="h-4 w-4 mr-2" />
-                Install
+                <Download className="w-4 h-4 mr-2" />
+                Install App
               </Button>
               <Button
+                variant="outline"
                 onClick={handleDismiss}
-                variant="ghost"
-                className="text-white hover:bg-white hover:bg-opacity-10"
-                data-testid="dismiss-install"
+                size="sm"
               >
-                <X className="h-4 w-4" />
+                Not Now
               </Button>
             </div>
           </div>

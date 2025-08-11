@@ -63,6 +63,8 @@ function App() {
                 icon={currentMode.icon} 
               />
               
+              <InstallPrompt />
+              
               <AnimatePresence mode="wait">
                 <motion.div
                   key={orientation}

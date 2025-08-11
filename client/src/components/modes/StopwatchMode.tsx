@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { useStopwatch } from '@/hooks/useTime';
-import { Button } from '@/components/ui/button';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 import { Play, Pause, RotateCcw, Flag } from 'lucide-react';
+import { hapticFeedback } from '@/utils/haptics';
 
 export default function StopwatchMode() {
   const { 
@@ -58,32 +59,35 @@ export default function StopwatchMode() {
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col space-y-4 ml-8"
         >
-          <Button
+          <EnhancedButton
             className="w-20 h-20 bg-green-500 hover:bg-green-600 rounded-full text-2xl touch-feedback shadow-2xl ripple neon-glow breathe"
             onClick={isRunning ? pause : start}
+            haptic="medium"
             data-testid="stopwatch-toggle"
           >
             {isRunning ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
-          </Button>
+          </EnhancedButton>
           
-          <Button
+          <EnhancedButton
             variant="ghost"
             className="w-16 h-16 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full text-xl touch-feedback text-white"
             onClick={reset}
+            haptic="light"
             data-testid="stopwatch-reset"
           >
             <RotateCcw className="h-6 w-6" />
-          </Button>
+          </EnhancedButton>
           
-          <Button
+          <EnhancedButton
             variant="ghost"
             className="w-16 h-16 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full text-xl touch-feedback text-white"
             onClick={lap}
             disabled={!isRunning}
+            haptic="light"
             data-testid="stopwatch-lap"
           >
             <Flag className="h-6 w-6" />
-          </Button>
+          </EnhancedButton>
         </motion.div>
       </div>
 
