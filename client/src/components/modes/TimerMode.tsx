@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTimer } from '@/hooks/useTime';
 import { Button } from '@/components/ui/button';
-import { Play, Pause, Plus, Minus } from 'lucide-react';
+import { Play, Pause, Plus, Minus, RotateCcw } from 'lucide-react';
 
 export default function TimerMode() {
   const { 
