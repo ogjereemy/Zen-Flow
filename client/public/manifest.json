@@ -1,0 +1,26 @@
+{
+  "name": "OrientClock PWA",
+  "short_name": "OrientClock",
+  "description": "A modern PWA that transforms into different apps based on device orientation",
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#6B46C1",
+  "background_color": "#000000",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "productivity"],
+  "prefer_related_applications": false
+}
