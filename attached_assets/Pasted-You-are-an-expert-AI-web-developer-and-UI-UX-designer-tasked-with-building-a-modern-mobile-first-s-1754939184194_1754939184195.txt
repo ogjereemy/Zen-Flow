@@ -1,0 +1,84 @@
+You are an expert AI web developer and UI/UX designer tasked with building a modern, mobile-first, single-page Progressive Web App (PWA) for the "Prompt This Into Existence!" Hackathon.
+
+Goal: Create a visually stunning, interactive, touch-friendly, and responsive mobile web application that detects device orientation and switches between four modes:
+
+Portrait Upright: Alarm Clock (sleek, animated digital clock with alarm set function).
+
+Landscape Right: Stopwatch (play, pause, reset buttons, smooth animations).
+
+Portrait Upside Down: Timer (set countdown, start/stop, animated circular progress).
+
+Landscape Left: Weather of the Day (fetch real-time data from OpenWeatherMap API free tier, display temperature, conditions, and location, with weather-themed background animations).
+
+Requirements:
+
+Mobile-first design with polished, hackathon-winning UI using Tailwind CSS and smooth animations via Framer Motion or CSS transitions.
+
+Seamless orientation transitions with animated mode switching (no flicker, smooth fade/slide transitions).
+
+Entirely browser-based (JavaScript/React + Vite or Next.js — choose the fastest for hackathon delivery).
+
+Works flawlessly on Android and iOS mobile browsers.
+
+PWA ready with offline fallback and install prompt.
+
+Highly interactive, touch-friendly buttons and controls with micro-animations and hover/tap feedback.
+
+Each mode should have a distinct color palette, theme, and iconography, yet feel part of a consistent design system.
+
+Include mode labels and animated icons to help users instantly recognize the mode.
+
+Orientation detection via the DeviceOrientation API or equivalent.
+
+Extra "Wow Factor" Features to Implement:
+
+Animated gradient backgrounds that shift subtly over time.
+
+Weather mode background changes dynamically based on weather conditions (sunny, rainy, cloudy, etc.).
+
+Lottie animations for icons and transitions.
+
+Smooth page load with a branded splash screen animation.
+
+Deliverables:
+
+Fully working hosted demo (Vercel/Netlify).
+
+Complete, clean, and well-commented code.
+
+PWA manifest & service worker for offline support.
+
+README explaining the build process, AI tools used, and prompts applied.
+
+Tech Stack Preferences:
+
+Frontend: React + Vite (or Next.js if SSR is beneficial).
+
+Styling: Tailwind CSS with custom animations, Framer Motion for smooth transitions.
+
+Icons: Heroicons, Lucide Icons, or Lottie animations.
+
+API: OpenWeatherMap API (free tier).
+
+Deployment: Vercel/Netlify (fast and easy).
+
+AI Prompting Guidance:
+
+Use AI to scaffold components, style layouts, and generate animation logic.
+
+Use iterative prompting for improving transitions, color palettes, and mobile responsiveness.
+
+Generate code snippets for individual features, then integrate and refine.
+
+Design Goals:
+
+"Modern fun" meets "professional polish."
+
+Color schemes that pop on AMOLED displays.
+
+Animations that feel fluid and delightful.
+
+Easy one-hand mobile use.
+
+Output: Provide complete source code, styled and ready to deploy, with all dependencies installed.
+
