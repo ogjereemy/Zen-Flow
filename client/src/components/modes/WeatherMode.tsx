@@ -19,6 +19,19 @@ const weatherEmojis: Record<string, string> = {
 
 export default function WeatherMode() {
   const { data: weather, isLoading, error, refetch } = useWeather();
+  
+  const handleLocationRequest = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        () => {
+          refetch(); // Refetch with new location
+        },
+        (error) => {
+          console.error('Location access denied:', error.message);
+        }
+      );
+    }
+  };
 
   const backgroundStyle = {
     background: 'linear-gradient(-45deg, hsl(200 98% 39%), hsl(200 90% 30%), hsl(200 98% 39%), hsl(200 90% 30%))',
@@ -143,7 +156,7 @@ export default function WeatherMode() {
                   </div>
                   <div className="flex justify-between">
                     <span className="opacity-80">UV Index</span>
-                    <span data-testid="weather-uv">{weather.uvIndex}</span>
+                    <span data-testid="weather-uv">{weather.uvIndex ?? 'N/A'}</span>
                   </div>
                 </div>
               </div>

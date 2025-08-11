@@ -6,12 +6,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/weather", async (req, res) => {
     try {
       const { lat, lon } = req.query;
-      const apiKey = process.env.OPENWEATHER_API_KEY || process.env.WEATHER_API_KEY || "demo_key";
+      const apiKey = process.env.OPENWEATHER_API_KEY || process.env.WEATHER_API_KEY;
+      
+      if (!apiKey || apiKey === "demo_key") {
+        return res.status(401).json({ 
+          error: "Weather API key not configured",
+          message: "Please provide a valid OpenWeatherMap API key"
+        });
+      }
       
       // Default to San Francisco if no coordinates provided
       const latitude = lat || "37.7749";
       const longitude = lon || "-122.4194";
       
+      // Fetch current weather
       const weatherResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
       );
@@ -21,6 +29,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const weatherData = await weatherResponse.json();
+      
+      // Fetch UV Index and more detailed data from One Call API
+      let uvIndex = null;
+      try {
+        const oneCallResponse = await fetch(
+          `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&exclude=minutely,daily,alerts`
+        );
+        if (oneCallResponse.ok) {
+          const oneCallData = await oneCallResponse.json();
+          uvIndex = oneCallData.current?.uvi || null;
+        }
+      } catch (uvError) {
+        console.log("UV data unavailable:", uvError);
+      }
       
       // Fetch hourly forecast
       const forecastResponse = await fetch(
@@ -48,7 +70,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         feelsLike: weatherData.main.feels_like,
         humidity: weatherData.main.humidity,
         windSpeed: weatherData.wind.speed * 3.6, // Convert m/s to km/h
-        uvIndex: 5, // UV index requires separate API call in OpenWeather
+        uvIndex: uvIndex !== null ? Math.round(uvIndex) : null,
         hourlyForecast
       };
       
