@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTime } from '@/hooks/useTime';
 import { EnhancedButton } from '@/components/ui/enhanced-button';
@@ -10,6 +10,53 @@ export default function AlarmMode() {
   const currentTime = useTime();
   const [alarmTime, setAlarmTime] = useState({ hours: 7, minutes: 30 });
   const [alarmEnabled, setAlarmEnabled] = useState(false);
+  const [alarmTriggered, setAlarmTriggered] = useState(false);
+  const [isRinging, setIsRinging] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (audioRef.current === null) {
+      audioRef.current = new Audio('/alarm.mp3'); // Placeholder: Add your alarm sound file here
+      audioRef.current.loop = true;
+    }
+
+    if (alarmEnabled) {
+      const currentHours = currentTime.getHours();
+      const currentMinutes = currentTime.getMinutes();
+
+      if (
+        currentHours === alarmTime.hours &&
+        currentMinutes === alarmTime.minutes &&
+        !alarmTriggered
+      ) {
+        console.log('Alarm triggered!');
+        hapticFeedback.heavy();
+        audioRef.current?.play();
+        setAlarmTriggered(true);
+        setIsRinging(true); // Set isRinging to true when alarm triggers
+      } else if (
+        (currentHours !== alarmTime.hours ||
+          currentMinutes !== alarmTime.minutes) &&
+        alarmTriggered
+      ) {
+        // Reset alarmTriggered when the minute changes to allow re-triggering next day
+        setAlarmTriggered(false);
+        setIsRinging(false); // Set isRinging to false when alarm minute passes
+        audioRef.current?.pause();
+        if (audioRef.current) {
+          audioRef.current.currentTime = 0;
+        }
+      }
+    } else {
+      // If alarm is disabled, stop any playing sound and reset triggered state
+      audioRef.current?.pause();
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+      }
+      setAlarmTriggered(false);
+      setIsRinging(false); // Set isRinging to false when alarm is disabled
+    }
+  }, [alarmEnabled, alarmTime, currentTime, alarmTriggered]);
 
   const formatCurrentTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', { 
@@ -41,6 +88,37 @@ export default function AlarmMode() {
         return { ...prev, minutes: newMinutes };
       }
     });
+  };
+
+  const handleTurnOffAlarm = () => {
+    audioRef.current?.pause();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
+    setAlarmEnabled(false);
+    setAlarmTriggered(false);
+    setIsRinging(false);
+  };
+
+  const handleSnoozeAlarm = () => {
+    audioRef.current?.pause();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+    }
+    setAlarmTriggered(false);
+    setIsRinging(false);
+
+    const now = new Date();
+    let newMinutes = now.getMinutes() + 5; // Snooze for 5 minutes
+    let newHours = now.getHours();
+
+    if (newMinutes >= 60) {
+      newMinutes -= 60;
+      newHours = (newHours + 1) % 24;
+    }
+
+    setAlarmTime({ hours: newHours, minutes: newMinutes });
+    setAlarmEnabled(true); // Re-enable alarm for snooze
   };
 
   const backgroundStyle = {
@@ -161,6 +239,34 @@ export default function AlarmMode() {
               {alarmTime.hours >= 12 ? 'PM' : 'AM'}
             </span>
           </div>
+
+          {isRinging && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="flex justify-center space-x-4 mt-6"
+            >
+              <EnhancedButton
+                variant="default"
+                size="lg"
+                className="bg-red-500 hover:bg-red-600 text-white shadow-lg"
+                onClick={handleTurnOffAlarm}
+                haptic="heavy"
+              >
+                Turn Off
+              </EnhancedButton>
+              <EnhancedButton
+                variant="outline"
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-black shadow-lg"
+                onClick={handleSnoozeAlarm}
+                haptic="medium"
+              >
+                Snooze
+              </EnhancedButton>
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </div>
